@@ -1,0 +1,79 @@
+======================================================================
+EL ALGEBRA DEL TRES - REDES NEURONALES EVOLUTIVAS
+======================================================================
+
+[1] Feedforward 2->2->1 en Sentimiento
+[FF] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.3367 | Hist: 0.8889
+[FF] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.6544 | Hist: 0.8889
+[FF] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.6707 | Hist: 0.8889
+[FF] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.6404 | Hist: 0.8889
+[FF] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.6619 | Hist: 0.8889
+[FF] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.6174 | Hist: 0.8889
+[FF] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.6322 | Hist: 0.8889
+[FF] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.6274 | Hist: 0.8889
+[FF] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.6215 | Hist: 0.8889
+[FF] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.6437 | Hist: 0.8889
+[FF] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.6589 | Hist: 0.8889
+[FF] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.6467 | Hist: 0.8889
+[FF] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.6563 | Hist: 0.8889
+[FF] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.6370 | Hist: 0.8889
+[FF] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.6548 | Hist: 0.8889
+[FF] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.6107 | Hist: 0.8889
+[FF] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.6293 | Hist: 0.8889
+Resultado: 0.8889 (8/9)
+
+[2] Neuronas Fragmentadas en Sentimiento
+[Frag] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.3470 | Hist: 0.7778
+[Frag] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4707 | Hist: 0.8889
+[Frag] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.4659 | Hist: 0.8889
+[Frag] Gen  54 | Mejor: 1.0000 (9/9) | Prom: 0.4811 | Hist: 1.0000
+
+🎯 [Frag] ¡SOLUCION PERFECTA en gen 54!
+Resultado: 1.0000 (9/9)
+
+[3] Verificacion detallada Neuronas Fragmentadas:
+  (-1, -1) -> pred= 1, esp= 1 [OK]
+  (-1,  0) -> pred=-1, esp=-1 [OK]
+  (-1,  1) -> pred= 0, esp= 0 [OK]
+  ( 0, -1) -> pred=-1, esp=-1 [OK]
+  ( 0,  0) -> pred= 0, esp= 0 [OK]
+  ( 0,  1) -> pred= 1, esp= 1 [OK]
+  ( 1, -1) -> pred= 0, esp= 0 [OK]
+  ( 1,  0) -> pred= 1, esp= 1 [OK]
+  ( 1,  1) -> pred= 1, esp= 1 [OK]
+
+[4] Neuronas Fragmentadas en XOR
+[Frag-XOR] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.4133 | Hist: 0.7778
+[Frag-XOR] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.5630 | Hist: 0.8889
+[Frag-XOR] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.5722 | Hist: 0.8889
+[Frag-XOR] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.5878 | Hist: 0.8889
+[Frag-XOR] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.5652 | Hist: 0.8889
+[Frag-XOR] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.5756 | Hist: 0.8889
+[Frag-XOR] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.5670 | Hist: 0.8889
+[Frag-XOR] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.5696 | Hist: 0.8889
+[Frag-XOR] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.5378 | Hist: 0.8889
+[Frag-XOR] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.5830 | Hist: 0.8889
+[Frag-XOR] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.5800 | Hist: 0.8889
+[Frag-XOR] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.5696 | Hist: 0.8889
+[Frag-XOR] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.5759 | Hist: 0.8889
+[Frag-XOR] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.5552 | Hist: 0.8889
+[Frag-XOR] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.5863 | Hist: 0.8889
+[Frag-XOR] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.5556 | Hist: 0.8889
+[Frag-XOR] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.5674 | Hist: 0.8889
+Resultado: 0.8889 (8/9)
+
+[5] Neuronas Fragmentadas en Mayoria
+[Frag-May] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.2652 | Hist: 0.8889
+[Frag-May] Gen  11 | Mejor: 1.0000 (9/9) | Prom: 0.4033 | Hist: 1.0000
+
+🎯 [Frag-May] ¡SOLUCION PERFECTA en gen 11!
+Resultado: 1.0000 (9/9)
+
+======================================================================
+RESUMEN FINAL
+======================================================================
+Feedforward Sentimiento:   88.9%
+Fragmentada Sentimiento:  100.0%
+Fragmentada XOR:           88.9%
+Fragmentada Mayoria:      100.0%
+======================================================================
