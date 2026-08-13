@@ -1,0 +1,159 @@
+/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py:427: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+================================================================================
+ÁLGEBRA DEL TRES - COMPARATIVA COMPLETA
+Feedforward vs Fragmentadas vs LSTM Ternaria
+================================================================================
+
+================================================================================
+EXPERIMENTO 1: SENTIMIENTO
+================================================================================
+[FF-Sentimiento] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.3367 | Hist: 0.8889
+[FF-Sentimiento] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.6544 | Hist: 0.8889
+[FF-Sentimiento] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.6707 | Hist: 0.8889
+[FF-Sentimiento] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.6404 | Hist: 0.8889
+[FF-Sentimiento] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.6619 | Hist: 0.8889
+[FF-Sentimiento] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.6174 | Hist: 0.8889
+[FF-Sentimiento] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.6322 | Hist: 0.8889
+[FF-Sentimiento] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.6274 | Hist: 0.8889
+[FF-Sentimiento] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.6215 | Hist: 0.8889
+[FF-Sentimiento] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.6437 | Hist: 0.8889
+[FF-Sentimiento] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.6589 | Hist: 0.8889
+[FF-Sentimiento] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.6467 | Hist: 0.8889
+[FF-Sentimiento] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.6563 | Hist: 0.8889
+[FF-Sentimiento] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.6370 | Hist: 0.8889
+[FF-Sentimiento] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.6548 | Hist: 0.8889
+[FF-Sentimiento] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.6107 | Hist: 0.8889
+[FF-Sentimiento] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.6293 | Hist: 0.8889
+[Frag-Sentimiento] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.3470 | Hist: 0.7778
+[Frag-Sentimiento] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4707 | Hist: 0.8889
+[Frag-Sentimiento] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.4659 | Hist: 0.8889
+[Frag-Sentimiento] Gen  54 | Mejor: 1.0000 (9/9) | Prom: 0.4811 | Hist: 1.0000
+
+🎯 [Frag-Sentimiento] ¡SOLUCION PERFECTA en gen 54!
+[LSTM-Sentimiento] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.3304 | Hist: 0.8889
+[LSTM-Sentimiento] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4433 | Hist: 0.8889
+[LSTM-Sentimiento] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.4459 | Hist: 0.8889
+[LSTM-Sentimiento] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.4267 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.4578 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.4648 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.4811 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.4700 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.4126 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.4441 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.4370 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.4381 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.4426 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.4567 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.4678 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.4759 | Hist: 0.8889
+[LSTM-Sentimiento] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.4348 | Hist: 0.8889
+
+================================================================================
+EXPERIMENTO 2: XOR
+================================================================================
+[FF-XOR] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.4081 | Hist: 0.7778
+[FF-XOR] Gen  25 | Mejor: 0.7778 (7/9) | Prom: 0.6159 | Hist: 0.7778
+[FF-XOR] Gen  50 | Mejor: 0.7778 (7/9) | Prom: 0.6296 | Hist: 0.7778
+[FF-XOR] Gen  75 | Mejor: 0.7778 (7/9) | Prom: 0.6433 | Hist: 0.7778
+[FF-XOR] Gen 100 | Mejor: 0.7778 (7/9) | Prom: 0.6289 | Hist: 0.7778
+[FF-XOR] Gen 125 | Mejor: 0.7778 (7/9) | Prom: 0.6374 | Hist: 0.7778
+[FF-XOR] Gen 150 | Mejor: 0.7778 (7/9) | Prom: 0.6493 | Hist: 0.7778
+[FF-XOR] Gen 175 | Mejor: 0.7778 (7/9) | Prom: 0.6526 | Hist: 0.7778
+[FF-XOR] Gen 200 | Mejor: 0.7778 (7/9) | Prom: 0.6311 | Hist: 0.7778
+[FF-XOR] Gen 225 | Mejor: 0.7778 (7/9) | Prom: 0.6333 | Hist: 0.7778
+[FF-XOR] Gen 250 | Mejor: 0.7778 (7/9) | Prom: 0.6041 | Hist: 0.7778
+[FF-XOR] Gen 275 | Mejor: 0.7778 (7/9) | Prom: 0.6156 | Hist: 0.7778
+[FF-XOR] Gen 300 | Mejor: 0.7778 (7/9) | Prom: 0.6341 | Hist: 0.7778
+[FF-XOR] Gen 325 | Mejor: 0.7778 (7/9) | Prom: 0.6281 | Hist: 0.7778
+[FF-XOR] Gen 350 | Mejor: 0.7778 (7/9) | Prom: 0.6344 | Hist: 0.7778
+[FF-XOR] Gen 375 | Mejor: 0.7778 (7/9) | Prom: 0.6396 | Hist: 0.7778
+[FF-XOR] Gen 399 | Mejor: 0.7778 (7/9) | Prom: 0.6652 | Hist: 0.7778
+[Frag-XOR] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.4133 | Hist: 0.7778
+[Frag-XOR] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.5630 | Hist: 0.8889
+[Frag-XOR] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.5722 | Hist: 0.8889
+[Frag-XOR] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.5878 | Hist: 0.8889
+[Frag-XOR] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.5652 | Hist: 0.8889
+[Frag-XOR] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.5756 | Hist: 0.8889
+[Frag-XOR] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.5670 | Hist: 0.8889
+[Frag-XOR] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.5696 | Hist: 0.8889
+[Frag-XOR] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.5378 | Hist: 0.8889
+[Frag-XOR] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.5830 | Hist: 0.8889
+[Frag-XOR] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.5800 | Hist: 0.8889
+[Frag-XOR] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.5696 | Hist: 0.8889
+[Frag-XOR] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.5759 | Hist: 0.8889
+[Frag-XOR] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.5552 | Hist: 0.8889
+[Frag-XOR] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.5863 | Hist: 0.8889
+[Frag-XOR] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.5556 | Hist: 0.8889
+[Frag-XOR] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.5674 | Hist: 0.8889
+[LSTM-XOR] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.4133 | Hist: 0.7778
+[LSTM-XOR] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4893 | Hist: 0.8889
+[LSTM-XOR] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.5263 | Hist: 0.8889
+[LSTM-XOR] Gen  61 | Mejor: 1.0000 (9/9) | Prom: 0.5696 | Hist: 1.0000
+
+🎯 [LSTM-XOR] ¡SOLUCION PERFECTA en gen 61!
+
+================================================================================
+EXPERIMENTO 3: MAYORÍA
+================================================================================
+[FF-Mayoría] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.2511 | Hist: 0.7778
+[FF-Mayoría] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4556 | Hist: 0.8889
+[FF-Mayoría] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.4652 | Hist: 0.8889
+[FF-Mayoría] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.5044 | Hist: 0.8889
+[FF-Mayoría] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.5622 | Hist: 0.8889
+[FF-Mayoría] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.5481 | Hist: 0.8889
+[FF-Mayoría] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.5585 | Hist: 0.8889
+[FF-Mayoría] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.5652 | Hist: 0.8889
+[FF-Mayoría] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.5626 | Hist: 0.8889
+[FF-Mayoría] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.5326 | Hist: 0.8889
+[FF-Mayoría] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.5370 | Hist: 0.8889
+[FF-Mayoría] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.5600 | Hist: 0.8889
+[FF-Mayoría] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.5341 | Hist: 0.8889
+[FF-Mayoría] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.5578 | Hist: 0.8889
+[FF-Mayoría] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.5426 | Hist: 0.8889
+[FF-Mayoría] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.5496 | Hist: 0.8889
+[FF-Mayoría] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.5607 | Hist: 0.8889
+[Frag-Mayoría] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.2652 | Hist: 0.8889
+[Frag-Mayoría] Gen  11 | Mejor: 1.0000 (9/9) | Prom: 0.4033 | Hist: 1.0000
+
+🎯 [Frag-Mayoría] ¡SOLUCION PERFECTA en gen 11!
+[LSTM-Mayoría] Gen   0 | Mejor: 0.6667 (6/9) | Prom: 0.2519 | Hist: 0.6667
+[LSTM-Mayoría] Gen  16 | Mejor: 1.0000 (9/9) | Prom: 0.4293 | Hist: 1.0000
+
+🎯 [LSTM-Mayoría] ¡SOLUCION PERFECTA en gen 16!
+
+================================================================================
+TABLA FINAL DE RESULTADOS
+================================================================================
+Dataset      Arquitectura    Fitness    Generación
+--------------------------------------------------------------------------------
+Sentimiento  Feedforward     0.8889    0         
+Sentimiento  Fragmentadas    1.0000    54        
+Sentimiento  LSTM            0.8889    0         
+XOR          Feedforward     0.7778    0         
+XOR          Fragmentadas    0.8889    2         
+XOR          LSTM            1.0000    61        
+Mayoría      Feedforward     0.8889    2         
+Mayoría      Fragmentadas    1.0000    11        
+Mayoría      LSTM            1.0000    16        
+================================================================================
+
+================================================================================
+VERIFICACIÓN DETALLADA: FRAGMENTADAS EN SENTIMIENTO
+================================================================================
+Predicciones para cada ejemplo:
+  (-1, -1) → pred= 1, esp= 1 ✅
+  (-1,  0) → pred=-1, esp=-1 ✅
+  (-1,  1) → pred= 0, esp= 0 ✅
+  ( 0, -1) → pred=-1, esp=-1 ✅
+  ( 0,  0) → pred= 0, esp= 0 ✅
+  ( 0,  1) → pred= 1, esp= 1 ✅
+  ( 1, -1) → pred= 0, esp= 0 ✅
+  ( 1,  0) → pred= 1, esp= 1 ✅
+  ( 1,  1) → pred= 1, esp= 1 ✅
+
+✅ Resultados guardados en 'resultados_comparativa.pkl'
+
+================================================================================
+FIN DEL EXPERIMENTO
+================================================================================

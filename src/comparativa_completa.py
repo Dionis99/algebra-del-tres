@@ -1,0 +1,481 @@
+#!/usr/bin/env python3
+import random
+import pickle
+import matplotlib.pyplot as plt
+from typing import List, Tuple, Optional
+
+P = [-1, 0, 1]
+
+def interaction(a: int, b: int) -> int:
+    if a == 0 or b == 0:
+        return 0
+    return a * b
+
+def copresence(a: int, b: int) -> int:
+    if a == b:
+        return a
+    if a == 0:
+        return b
+    if b == 0:
+        return a
+    return 0
+
+def up(x: int) -> int:
+    return 1 if x == 0 else x
+
+def down(x: int) -> int:
+    return -1 if x == 0 else x
+
+def apply_op(x: int, op: Optional[str]) -> int:
+    if op == 'up':
+        return up(x)
+    if op == 'down':
+        return down(x)
+    return x
+
+DATASET_SENTIMIENTO = [
+    (-1, -1, 1), (-1, 0, -1), (-1, 1, 0),
+    (0, -1, -1), (0, 0, 0), (0, 1, 1),
+    (1, -1, 0), (1, 0, 1), (1, 1, 1),
+]
+
+DATASET_XOR = [
+    (-1, -1, -1), (-1, 0, 1), (-1, 1, 1),
+    (0, -1, 1), (0, 0, 0), (0, 1, -1),
+    (1, -1, 1), (1, 0, -1), (1, 1, -1),
+]
+
+DATASET_MAYORIA = [
+    (-1, -1, -1), (-1, 0, -1), (-1, 1, 0),
+    (0, -1, -1), (0, 0, 0), (0, 1, 0),
+    (1, -1, 0), (1, 0, 0), (1, 1, 1),
+]
+
+class NeuronaDelTres:
+    def __init__(self, num_inputs: int):
+        self.num_inputs = num_inputs
+        self.pesos = [random.choice(P) for _ in range(num_inputs)]
+        self.orden = list(range(num_inputs))
+        random.shuffle(self.orden)
+        self.op = random.choice([None, 'up', 'down'])
+
+    def forward(self, entradas: List[int]) -> int:
+        idx0 = self.orden[0]
+        r = interaction(self.pesos[idx0], entradas[idx0])
+        for k in range(1, self.num_inputs):
+            idx = self.orden[k]
+            r = copresence(r, interaction(self.pesos[idx], entradas[idx]))
+        return apply_op(r, self.op)
+
+    def clone(self):
+        n = NeuronaDelTres(self.num_inputs)
+        n.pesos = self.pesos.copy()
+        n.orden = self.orden.copy()
+        n.op = self.op
+        return n
+
+    def mutate(self, tasa=0.15):
+        for i in range(self.num_inputs):
+            if random.random() < tasa:
+                self.pesos[i] = random.choice(P)
+        if random.random() < tasa and self.num_inputs >= 2:
+            i, j = random.sample(range(self.num_inputs), 2)
+            self.orden[i], self.orden[j] = self.orden[j], self.orden[i]
+        if random.random() < tasa:
+            self.op = random.choice([None, 'up', 'down'])
+
+class RedFeedforwardDelTres:
+    def __init__(self, hidden_size=2):
+        self.hidden_size = hidden_size
+        self.hidden = [NeuronaDelTres(2) for _ in range(hidden_size)]
+        self.output = NeuronaDelTres(hidden_size)
+
+    def forward(self, x1, x2):
+        h = [n.forward([x1, x2]) for n in self.hidden]
+        return self.output.forward(h)
+
+    def evaluate(self, dataset):
+        return sum(1 for x1, x2, esp in dataset if self.forward(x1, x2) == esp) / len(dataset)
+
+    def clone(self):
+        r = RedFeedforwardDelTres(self.hidden_size)
+        r.hidden = [n.clone() for n in self.hidden]
+        r.output = self.output.clone()
+        return r
+
+    def mutate(self, tasa=0.15):
+        for n in self.hidden:
+            n.mutate(tasa)
+        self.output.mutate(tasa)
+class NeuronaFragmentada:
+    def __init__(self, num_inputs, num_slots=3):
+        self.num_inputs = num_inputs
+        self.num_slots = num_slots
+        self.slots = [0] * num_slots
+        self.pesos_out = [random.choice(P) for _ in range(num_inputs + 1)]
+        self.orden_out = list(range(num_inputs + 1))
+        random.shuffle(self.orden_out)
+        self.op_out = random.choice([None, 'up', 'down'])
+        self.pesos_read = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_read = list(range(num_inputs))
+        random.shuffle(self.orden_read)
+        self.op_read = random.choice([None, 'up', 'down'])
+        self.pesos_write = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_write = list(range(num_inputs))
+        random.shuffle(self.orden_write)
+        self.op_write = random.choice([None, 'up', 'down'])
+        self.pesos_val = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_val = list(range(num_inputs))
+        random.shuffle(self.orden_val)
+        self.op_val = random.choice([None, 'up', 'down'])
+
+    def _compute(self, entradas, pesos, orden, op):
+        idx0 = orden[0]
+        r = interaction(pesos[idx0], entradas[idx0])
+        for k in range(1, len(entradas)):
+            idx = orden[k]
+            r = copresence(r, interaction(pesos[idx], entradas[idx]))
+        return apply_op(r, op)
+
+    def forward(self, entradas):
+        read_idx = (self._compute(entradas, self.pesos_read, self.orden_read, self.op_read) + 1) % self.num_slots
+        valor_leido = self.slots[read_idx]
+        salida = self._compute(entradas + [valor_leido], self.pesos_out, self.orden_out, self.op_out)
+        write_idx = (self._compute(entradas, self.pesos_write, self.orden_write, self.op_write) + 1) % self.num_slots
+        valor_escribir = self._compute(entradas, self.pesos_val, self.orden_val, self.op_val)
+        self.slots[write_idx] = copresence(self.slots[write_idx], valor_escribir)
+        return salida
+
+    def reset(self):
+        self.slots = [0] * self.num_slots
+
+    def clone(self):
+        n = NeuronaFragmentada(self.num_inputs, self.num_slots)
+        n.slots = self.slots.copy()
+        n.pesos_out = self.pesos_out.copy()
+        n.orden_out = self.orden_out.copy()
+        n.op_out = self.op_out
+        n.pesos_read = self.pesos_read.copy()
+        n.orden_read = self.orden_read.copy()
+        n.op_read = self.op_read
+        n.pesos_write = self.pesos_write.copy()
+        n.orden_write = self.orden_write.copy()
+        n.op_write = self.op_write
+        n.pesos_val = self.pesos_val.copy()
+        n.orden_val = self.orden_val.copy()
+        n.op_val = self.op_val
+        return n
+
+    def mutate(self, tasa=0.15):
+        for lst in [self.pesos_out, self.pesos_read, self.pesos_write, self.pesos_val]:
+            for i in range(len(lst)):
+                if random.random() < tasa:
+                    lst[i] = random.choice(P)
+        for orden in [self.orden_out, self.orden_read, self.orden_write, self.orden_val]:
+            if random.random() < tasa and len(orden) >= 2:
+                i, j = random.sample(range(len(orden)), 2)
+                orden[i], orden[j] = orden[j], orden[i]
+        for op_attr in ['op_out', 'op_read', 'op_write', 'op_val']:
+            if random.random() < tasa:
+                setattr(self, op_attr, random.choice([None, 'up', 'down']))
+
+class RedFragmentada:
+    def __init__(self, hidden_size=3, num_slots=3, num_steps=3):
+        self.hidden_size = hidden_size
+        self.num_slots = num_slots
+        self.num_steps = num_steps
+        self.hidden = [NeuronaFragmentada(2, num_slots) for _ in range(hidden_size)]
+        self.output = NeuronaFragmentada(hidden_size, num_slots)
+
+    def reset(self):
+        for n in self.hidden:
+            n.reset()
+        self.output.reset()
+
+    def forward(self, x1, x2):
+        for _ in range(self.num_steps):
+            h = [n.forward([x1, x2]) for n in self.hidden]
+            salida = self.output.forward(h)
+        return salida
+
+    def evaluate(self, dataset):
+        aciertos = 0
+        for x1, x2, esp in dataset:
+            self.reset()
+            if self.forward(x1, x2) == esp:
+                aciertos += 1
+        return aciertos / len(dataset)
+
+    def clone(self):
+        r = RedFragmentada(self.hidden_size, self.num_slots, self.num_steps)
+        r.hidden = [n.clone() for n in self.hidden]
+        r.output = self.output.clone()
+        return r
+
+    def mutate(self, tasa=0.15):
+        for n in self.hidden:
+            n.mutate(tasa)
+        self.output.mutate(tasa)
+class NeuronaLSTM:
+    def __init__(self, num_inputs):
+        self.num_inputs = num_inputs
+        self.pesos_f = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_f = list(range(num_inputs))
+        random.shuffle(self.orden_f)
+        self.op_f = random.choice([None, 'up', 'down'])
+        self.pesos_i = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_i = list(range(num_inputs))
+        random.shuffle(self.orden_i)
+        self.op_i = random.choice([None, 'up', 'down'])
+        self.pesos_g = [random.choice(P) for _ in range(num_inputs)]
+        self.orden_g = list(range(num_inputs))
+        random.shuffle(self.orden_g)
+        self.op_g = random.choice([None, 'up', 'down'])
+        self.pesos_h = [random.choice(P) for _ in range(1)]
+        self.orden_h = [0]
+        random.shuffle(self.orden_h)
+        self.op_h = random.choice([None, 'up', 'down'])
+        self.C = 0
+        self.h = 0
+
+    def _compute(self, entradas, pesos, orden, op):
+        idx0 = orden[0]
+        r = interaction(pesos[idx0], entradas[idx0])
+        for k in range(1, len(entradas)):
+            idx = orden[k]
+            r = copresence(r, interaction(pesos[idx], entradas[idx]))
+        return apply_op(r, op)
+
+    def forward(self, entradas):
+        f = self._compute(entradas, self.pesos_f, self.orden_f, self.op_f)
+        i = self._compute(entradas, self.pesos_i, self.orden_i, self.op_i)
+        g = self._compute(entradas, self.pesos_g, self.orden_g, self.op_g)
+        term1 = interaction(f, self.C)
+        term2 = interaction(i, g)
+        self.C = copresence(term1, term2)
+        self.h = self._compute([self.C], self.pesos_h, self.orden_h, self.op_h)
+        return self.h
+
+    def reset(self):
+        self.C = 0
+        self.h = 0
+
+    def clone(self):
+        n = NeuronaLSTM(self.num_inputs)
+        n.pesos_f = self.pesos_f.copy()
+        n.orden_f = self.orden_f.copy()
+        n.op_f = self.op_f
+        n.pesos_i = self.pesos_i.copy()
+        n.orden_i = self.orden_i.copy()
+        n.op_i = self.op_i
+        n.pesos_g = self.pesos_g.copy()
+        n.orden_g = self.orden_g.copy()
+        n.op_g = self.op_g
+        n.pesos_h = self.pesos_h.copy()
+        n.orden_h = self.orden_h.copy()
+        n.op_h = self.op_h
+        n.C = self.C
+        n.h = self.h
+        return n
+
+    def mutate(self, tasa=0.15):
+        for lst in [self.pesos_f, self.pesos_i, self.pesos_g, self.pesos_h]:
+            for i in range(len(lst)):
+                if random.random() < tasa:
+                    lst[i] = random.choice(P)
+        for orden in [self.orden_f, self.orden_i, self.orden_g, self.orden_h]:
+            if random.random() < tasa and len(orden) >= 2:
+                i, j = random.sample(range(len(orden)), 2)
+                orden[i], orden[j] = orden[j], orden[i]
+        for op_attr in ['op_f', 'op_i', 'op_g', 'op_h']:
+            if random.random() < tasa:
+                setattr(self, op_attr, random.choice([None, 'up', 'down']))
+
+class RedLSTM:
+    def __init__(self, hidden_size=3, num_steps=3):
+        self.hidden_size = hidden_size
+        self.num_steps = num_steps
+        self.hidden = [NeuronaLSTM(2) for _ in range(hidden_size)]
+        self.output = NeuronaDelTres(hidden_size)
+
+    def reset(self):
+        for n in self.hidden:
+            n.reset()
+
+    def forward(self, x1, x2):
+        self.reset()
+        for _ in range(self.num_steps):
+            h_outs = [n.forward([x1, x2]) for n in self.hidden]
+        return self.output.forward(h_outs)
+
+    def evaluate(self, dataset):
+        aciertos = 0
+        for x1, x2, esp in dataset:
+            if self.forward(x1, x2) == esp:
+                aciertos += 1
+        return aciertos / len(dataset)
+
+    def clone(self):
+        r = RedLSTM(self.hidden_size, self.num_steps)
+        r.hidden = [n.clone() for n in self.hidden]
+        r.output = self.output.clone()
+        return r
+
+    def mutate(self, tasa=0.15):
+        for n in self.hidden:
+            n.mutate(tasa)
+        self.output.mutate(tasa)
+
+class EvolucionGenerica:
+    def __init__(self, factory, dataset, poblacion_size=300, generaciones=400,
+                 tasa_mutacion=0.14, elitismo=5, nombre="Red"):
+        self.factory = factory
+        self.dataset = dataset
+        self.poblacion_size = poblacion_size
+        self.generaciones = generaciones
+        self.tasa_mutacion = tasa_mutacion
+        self.elitismo = elitismo
+        self.nombre = nombre
+        self.poblacion = []
+        self.mejor_historico = None
+        self.mejor_fitness = 0.0
+        self.historia_mejor = []
+        self.historia_avg = []
+        self.generacion_mejor = 0
+
+    def inicializar(self):
+        self.poblacion = [self.factory() for _ in range(self.poblacion_size)]
+
+    def evaluar_poblacion(self):
+        return [(red.evaluate(self.dataset), red) for red in self.poblacion]
+
+    def seleccionar_torneo(self, evaluados, k=3):
+        torneo = random.sample(evaluados, k)
+        torneo.sort(key=lambda x: x[0], reverse=True)
+        return torneo[0][1]
+
+    def cruzar(self, p1, p2):
+        hijo = self.factory()
+        if hasattr(p1, 'hidden') and hasattr(p2, 'hidden'):
+            for i in range(min(len(p1.hidden), len(p2.hidden))):
+                hijo.hidden[i] = p1.hidden[i].clone() if random.random() < 0.5 else p2.hidden[i].clone()
+        if hasattr(p1, 'output') and hasattr(p2, 'output'):
+            hijo.output = p1.output.clone() if random.random() < 0.5 else p2.output.clone()
+        return hijo
+
+    def evolucionar(self, verbose=True):
+        self.inicializar()
+        for gen in range(self.generaciones):
+            evaluados = self.evaluar_poblacion()
+            evaluados.sort(key=lambda x: x[0], reverse=True)
+            mejor_f = evaluados[0][0]
+            avg_f = sum(f for f, _ in evaluados) / len(evaluados)
+            if mejor_f > self.mejor_fitness:
+                self.mejor_fitness = mejor_f
+                self.mejor_historico = evaluados[0][1].clone()
+                self.generacion_mejor = gen
+            self.historia_mejor.append(mejor_f)
+            self.historia_avg.append(avg_f)
+            if verbose and (gen % 25 == 0 or gen == self.generaciones - 1 or mejor_f >= 1.0):
+                print(f"[{self.nombre}] Gen {gen:3d} | Mejor: {mejor_f:.4f} ({mejor_f*9:.0f}/9) | Prom: {avg_f:.4f} | Hist: {self.mejor_fitness:.4f}")
+            if mejor_f >= 1.0:
+                if verbose:
+                    print(f"\n🎯 [{self.nombre}] ¡SOLUCION PERFECTA en gen {gen}!")
+                break
+            nueva = [evaluados[i][1].clone() for i in range(self.elitismo)]
+            while len(nueva) < self.poblacion_size:
+                p1 = self.seleccionar_torneo(evaluados, k=3)
+                p2 = self.seleccionar_torneo(evaluados, k=3)
+                hijo = self.cruzar(p1, p2)
+                hijo.mutate(self.tasa_mutacion)
+                nueva.append(hijo)
+            self.poblacion = nueva
+        return self.mejor_historico
+
+def ejecutar_experimento(dataset, nombre, seed, verbose=True):
+    resultados = {}
+    random.seed(seed)
+    ff_factory = lambda: RedFeedforwardDelTres(hidden_size=2)
+    ev_ff = EvolucionGenerica(ff_factory, dataset, 300, 400, 0.14, 5, f"FF-{nombre}")
+    mejor_ff = ev_ff.evolucionar(verbose)
+    resultados['Feedforward'] = {'fitness': ev_ff.mejor_fitness, 'generacion': ev_ff.generacion_mejor, 'historia': ev_ff.historia_mejor, 'mejor_red': mejor_ff}
+    random.seed(seed)
+    frag_factory = lambda: RedFragmentada(hidden_size=3, num_slots=3, num_steps=3)
+    ev_frag = EvolucionGenerica(frag_factory, dataset, 300, 400, 0.14, 5, f"Frag-{nombre}")
+    mejor_frag = ev_frag.evolucionar(verbose)
+    resultados['Fragmentadas'] = {'fitness': ev_frag.mejor_fitness, 'generacion': ev_frag.generacion_mejor, 'historia': ev_frag.historia_mejor, 'mejor_red': mejor_frag}
+    random.seed(seed)
+    lstm_factory = lambda: RedLSTM(hidden_size=3, num_steps=3)
+    ev_lstm = EvolucionGenerica(lstm_factory, dataset, 300, 400, 0.14, 5, f"LSTM-{nombre}")
+    mejor_lstm = ev_lstm.evolucionar(verbose)
+    resultados['LSTM'] = {'fitness': ev_lstm.mejor_fitness, 'generacion': ev_lstm.generacion_mejor, 'historia': ev_lstm.historia_mejor, 'mejor_red': mejor_lstm}
+    return resultados
+
+def graficar_comparativa(resultados, dataset_nombre, filename=None):
+    plt.figure(figsize=(10, 6))
+    for nombre, datos in resultados.items():
+        plt.plot(datos['historia'], label=nombre, linewidth=2)
+    plt.axhline(y=1.0, color='gray', linestyle='--', alpha=0.5, label='Perfecto')
+    plt.axhline(y=8/9, color='red', linestyle='--', alpha=0.5, label='Límite FF (8/9)')
+    plt.xlabel('Generación')
+    plt.ylabel('Mejor Fitness')
+    plt.title(f'Evolución en {dataset_nombre}')
+    plt.legend()
+    plt.grid(alpha=0.3)
+    if filename:
+        plt.savefig(filename, dpi=150, bbox_inches='tight')
+    plt.show()
+
+if __name__ == "__main__":
+    print("=" * 80)
+    print("ÁLGEBRA DEL TRES - COMPARATIVA COMPLETA")
+    print("Feedforward vs Fragmentadas vs LSTM Ternaria")
+    print("=" * 80)
+    SEMILLA_SENT = 42
+    SEMILLA_XOR = 123
+    SEMILLA_MAY = 456
+    all_results = {}
+    print("\n" + "=" * 80)
+    print("EXPERIMENTO 1: SENTIMIENTO")
+    print("=" * 80)
+    res_sent = ejecutar_experimento(DATASET_SENTIMIENTO, "Sentimiento", SEMILLA_SENT, verbose=True)
+    all_results['Sentimiento'] = res_sent
+    graficar_comparativa(res_sent, "Sentimiento", "comparativa_sentimiento.png")
+    print("\n" + "=" * 80)
+    print("EXPERIMENTO 2: XOR")
+    print("=" * 80)
+    res_xor = ejecutar_experimento(DATASET_XOR, "XOR", SEMILLA_XOR, verbose=True)
+    all_results['XOR'] = res_xor
+    graficar_comparativa(res_xor, "XOR", "comparativa_xor.png")
+    print("\n" + "=" * 80)
+    print("EXPERIMENTO 3: MAYORÍA")
+    print("=" * 80)
+    res_may = ejecutar_experimento(DATASET_MAYORIA, "Mayoría", SEMILLA_MAY, verbose=True)
+    all_results['Mayoría'] = res_may
+    graficar_comparativa(res_may, "Mayoría", "comparativa_mayoria.png")
+    print("\n" + "=" * 80)
+    print("TABLA FINAL DE RESULTADOS")
+    print("=" * 80)
+    print(f"{'Dataset':<12} {'Arquitectura':<15} {'Fitness':<10} {'Generación':<10}")
+    print("-" * 80)
+    for ds, res in all_results.items():
+        for arch, datos in res.items():
+            gen_str = str(datos['generacion']) if datos['generacion'] > 0 else "0"
+            print(f"{ds:<12} {arch:<15} {datos['fitness']:.4f}    {gen_str:<10}")
+    print("=" * 80)
+    print("\n" + "=" * 80)
+    print("VERIFICACIÓN DETALLADA: FRAGMENTADAS EN SENTIMIENTO")
+    print("=" * 80)
+    mejor_frag_sent = all_results['Sentimiento']['Fragmentadas']['mejor_red']
+    print("Predicciones para cada ejemplo:")
+    for x1, x2, esp in DATASET_SENTIMIENTO:
+        mejor_frag_sent.reset()
+        pred = mejor_frag_sent.forward(x1, x2)
+        ok = "✅" if pred == esp else "❌"
+        print(f"  ({x1:2d}, {x2:2d}) → pred={pred:2d}, esp={esp:2d} {ok}")
+    with open('resultados_comparativa.pkl', 'wb') as f:
+        pickle.dump(all_results, f)
+    print("\n✅ Resultados guardados en 'resultados_comparativa.pkl'")
+    print("\n" + "=" * 80)
+    print("FIN DEL EXPERIMENTO")
+    print("=" * 80)

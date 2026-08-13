@@ -1,0 +1,54 @@
+================================================================================
+ÁLGEBRA DEL TRES - COMPARATIVA COMPLETA
+Feedforward vs Fragmentadas vs LSTM Ternaria
+================================================================================
+
+================================================================================
+EXPERIMENTO 1: SENTIMIENTO
+================================================================================
+[FF-Sentimiento] Gen   0 | Mejor: 0.8889 (8/9) | Prom: 0.3367 | Hist: 0.8889
+[FF-Sentimiento] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.6544 | Hist: 0.8889
+[FF-Sentimiento] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.6707 | Hist: 0.8889
+[FF-Sentimiento] Gen  75 | Mejor: 0.8889 (8/9) | Prom: 0.6404 | Hist: 0.8889
+[FF-Sentimiento] Gen 100 | Mejor: 0.8889 (8/9) | Prom: 0.6619 | Hist: 0.8889
+[FF-Sentimiento] Gen 125 | Mejor: 0.8889 (8/9) | Prom: 0.6174 | Hist: 0.8889
+[FF-Sentimiento] Gen 150 | Mejor: 0.8889 (8/9) | Prom: 0.6322 | Hist: 0.8889
+[FF-Sentimiento] Gen 175 | Mejor: 0.8889 (8/9) | Prom: 0.6274 | Hist: 0.8889
+[FF-Sentimiento] Gen 200 | Mejor: 0.8889 (8/9) | Prom: 0.6215 | Hist: 0.8889
+[FF-Sentimiento] Gen 225 | Mejor: 0.8889 (8/9) | Prom: 0.6437 | Hist: 0.8889
+[FF-Sentimiento] Gen 250 | Mejor: 0.8889 (8/9) | Prom: 0.6589 | Hist: 0.8889
+[FF-Sentimiento] Gen 275 | Mejor: 0.8889 (8/9) | Prom: 0.6467 | Hist: 0.8889
+[FF-Sentimiento] Gen 300 | Mejor: 0.8889 (8/9) | Prom: 0.6563 | Hist: 0.8889
+[FF-Sentimiento] Gen 325 | Mejor: 0.8889 (8/9) | Prom: 0.6370 | Hist: 0.8889
+[FF-Sentimiento] Gen 350 | Mejor: 0.8889 (8/9) | Prom: 0.6548 | Hist: 0.8889
+[FF-Sentimiento] Gen 375 | Mejor: 0.8889 (8/9) | Prom: 0.6107 | Hist: 0.8889
+[FF-Sentimiento] Gen 399 | Mejor: 0.8889 (8/9) | Prom: 0.6293 | Hist: 0.8889
+[Frag-Sentimiento] Gen   0 | Mejor: 0.7778 (7/9) | Prom: 0.3470 | Hist: 0.7778
+[Frag-Sentimiento] Gen  25 | Mejor: 0.8889 (8/9) | Prom: 0.4707 | Hist: 0.8889
+[Frag-Sentimiento] Gen  50 | Mejor: 0.8889 (8/9) | Prom: 0.4659 | Hist: 0.8889
+[Frag-Sentimiento] Gen  54 | Mejor: 1.0000 (9/9) | Prom: 0.4811 | Hist: 1.0000
+
+🎯 [Frag-Sentimiento] ¡SOLUCION PERFECTA en gen 54!
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 441, in <module>
+    res_sent = ejecutar_experimento(DATASET_SENTIMIENTO, "Sentimiento", SEMILLA_SENT, verbose=True)
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 410, in ejecutar_experimento
+    mejor_lstm = ev_lstm.evolucionar(verbose)
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 369, in evolucionar
+    evaluados = self.evaluar_poblacion()
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 350, in evaluar_poblacion
+    return [(red.evaluate(self.dataset), red) for red in self.poblacion]
+             ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 314, in evaluate
+    if self.forward(x1, x2) == esp:
+       ~~~~~~~~~~~~^^^^^^^^
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 308, in forward
+    h_outs = [n.forward([x1, x2]) for n in self.hidden]
+              ~~~~~~~~~^^^^^^^^^^
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 256, in forward
+    self.h = self._compute([self.C], self.pesos_h, self.orden_h, self.op_h)
+             ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/IA_SABIA/src/comparativa_completa.py", line 243, in _compute
+    r = interaction(pesos[idx0], entradas[idx0])
+                                 ~~~~~~~~^^^^^^
+IndexError: list index out of range
