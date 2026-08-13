@@ -27,4 +27,4 @@ abstención calibrada emergente y memoria de exclusiones sanable.
 - Memoria m: -1+-1=-1 (indeleble); -1+1=0 (sanacion); -1*-1=+1 (inversion)
 
 ## Autores
-Dionis Iranjil Fuentes Lezcano · Qwen
+Dionis Iranjil Fuentes Lezcano · Qwen • Kimi
