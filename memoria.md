@@ -202,3 +202,42 @@ Próxima actualización: después de crear tritlab/ mínimo y primer benchmark.
 - tritlab/datasets/advanced.py
 - tritlab/benchmarks/run_baseline.py
 - tritlab/benchmarks/run_collapsing_network.py
+
+## 19. RESULTADO HISTÓRICO: RedColapsanteV2 rompe TODOS los límites
+
+**Fecha:** 2026-08-16
+**Arquitectura:** Red 2→3→1 de Colapsantes V2
+**Método:** Evolución (300 individuos, 400 generaciones)
+
+### Resultados:
+- Sentimiento: 100% (9/9) ← ROMPE límite 88.89%
+- XOR: 100% (9/9) ← ROMPE límite 77.78%
+- Mayoría: 100% (9/9) ← alcanza límite teórico
+
+### Implicaciones:
+1. El 0 como "burbuja contextual" es un recurso computacional genuino
+2. Colapsante V2 es más simple que Fragmentadas (sin slots, sin pasos)
+3. Validación completa del trabajo de Kimi
+4. Neurona base ideal para TritLM (rápida, determinista, rompe límites)
+
+### Verificación detallada XOR (el más difícil):
+[-1, -1] → -1 ✓
+[-1, 0] → +1 ✓  ← caso que requiere memoria en Fragmentadas
+[-1, 1] → +1 ✓
+[0, -1] → +1 ✓
+[0, 0] → +0 ✓
+[0, 1] → -1 ✓
+[1, -1] → +1 ✓
+[1, 0] → -1 ✓
+[1, 1] → -1 ✓
+### Comparación de arquitecturas en XOR:
+| Arquitectura | XOR | Memoria | Complejidad |
+|--------------|-----|---------|-------------|
+| T3 pura | 77.78% | No | Baja |
+| T3-NA | 77.78% | No | Media |
+| T3-R | 77.78% | Sí | Media |
+| Fragmentadas | 88.9% | Sí (slots) | Alta |
+| **RedColapsanteV2** | **100%** | No | Media |
+
+### Próximo paso:
+Implementar FragmentadaColapsante (hibridación memoria + colapso) para comparar.
