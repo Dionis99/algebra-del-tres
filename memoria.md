@@ -155,3 +155,50 @@ El 0 no es fracaso. Es el espacio donde vive el devenir.
 
 --- FIN DE MEMORIA CONSOLIDADA v2.0 ---
 Próxima actualización: después de crear tritlab/ mínimo y primer benchmark.
+
+## 18. SESIÓN 2026-08-16: FASE 4 - LABORATORIO MÍNIMO
+
+### Progreso de hoy:
+1. ✅ Crear tritlab/ con estructura algebra/, neurons/, datasets/, benchmarks/, experiments/
+2. ✅ Implementar algebra/operators.py (⊗, ⊕, ↑, ↓ con tablas numpy)
+3. ✅ Implementar neurons/base.py (interfaz común TritNeuron)
+4. ✅ Implementar neurons/ternary.py (T3 básica)
+5. ✅ Implementar neurons/non_associative.py (T3-NA con árboles)
+6. ✅ Implementar neurons/recurrent.py (T3-R con memoria temporal)
+7. ✅ Implementar neurons/collapsing.py (T3-G Colapsante V2)
+8. ✅ Implementar datasets/basic.py (sentimiento, xor, mayoria)
+9. ✅ Implementar datasets/advanced.py (paridad_3, mayoria_3, sec_memoria, sec_paridad)
+10. ✅ Implementar benchmarks/run_baseline.py (completo)
+11. ✅ Implementar networks/collapsing_network.py (red 2→3→1)
+
+### Resultados clave:
+- **Colapsante V2 (T3-G) ROMPE el límite feedforward en Sentimiento: 100% (9/9)**
+- T3, T3-NA, T3-R: 88.89% en Sentimiento (tope teórico)
+- T3-G NO rompe XOR con una sola neurona (77.78%)
+- T3-R aporta en secuenciales: 70-75%
+- T3-NA no muestra ventaja clara sobre T3
+- Algoritmo evolutivo simple no converge en Mayoría (77.78% vs 100% teórico)
+
+### Pendiente:
+- Resultado de RedColapsanteV2 en XOR (debería ser 100% según Kimi)
+- Medir comportamiento del 0 (tasa de ceros, tasa de colapso)
+- Implementar FragmentadaColapsante
+
+### Siguiente sesión:
+- Si RedColapsanteV2 rompe XOR: continuar con FragmentadaColapsante
+- Si no rompe: investigar por qué (más generaciones, diferente arquitectura)
+- Luego: MNIST con presión local
+
+### Archivos creados:
+- tritlab/algebra/operators.py
+- tritlab/algebra/__init__.py
+- tritlab/neurons/base.py
+- tritlab/neurons/ternary.py
+- tritlab/neurons/non_associative.py
+- tritlab/neurons/recurrent.py
+- tritlab/neurons/collapsing.py
+- tritlab/networks/collapsing_network.py
+- tritlab/datasets/basic.py
+- tritlab/datasets/advanced.py
+- tritlab/benchmarks/run_baseline.py
+- tritlab/benchmarks/run_collapsing_network.py
