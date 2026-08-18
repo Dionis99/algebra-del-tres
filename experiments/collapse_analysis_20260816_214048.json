@@ -1,0 +1,59 @@
+{
+  "sentimiento": {
+    "precision": 1.0,
+    "stats": {
+      "total_pesos": 9,
+      "pesos_cero": 2,
+      "tasa_ceros": 0.2222222222222222,
+      "tasa_no_ceros": 0.7777777777777778,
+      "umbrales_media": -0.2585005861406341,
+      "umbrales_std": 0.2939956274555861,
+      "umbrales_min": -0.7514187972505513,
+      "umbrales_max": 0.02138790723227757,
+      "colapsos_media": 0.5,
+      "colapsos_std": 0.8660254037844386,
+      "presion_media": 0.018518518518518528,
+      "presion_std": 0.6258053795820667,
+      "presion_min": -1.0,
+      "presion_max": 1.0
+    }
+  },
+  "xor": {
+    "precision": 1.0,
+    "stats": {
+      "total_pesos": 9,
+      "pesos_cero": 4,
+      "tasa_ceros": 0.4444444444444444,
+      "tasa_no_ceros": 0.5555555555555556,
+      "umbrales_media": 0.13544089663331865,
+      "umbrales_std": 0.7557073608846412,
+      "umbrales_min": -0.8292295816323008,
+      "umbrales_max": 0.9511267658406828,
+      "colapsos_media": 1.0,
+      "colapsos_std": 0.7071067811865476,
+      "presion_media": -0.027777777777777773,
+      "presion_std": 0.5321456683518894,
+      "presion_min": -1.0,
+      "presion_max": 1.0
+    }
+  },
+  "mayoria": {
+    "precision": 1.0,
+    "stats": {
+      "total_pesos": 9,
+      "pesos_cero": 4,
+      "tasa_ceros": 0.4444444444444444,
+      "tasa_no_ceros": 0.5555555555555556,
+      "umbrales_media": 0.09564089200198453,
+      "umbrales_std": 0.33364609736541406,
+      "umbrales_min": -0.3190739374522508,
+      "umbrales_max": 0.5975205246656029,
+      "colapsos_media": 1.0,
+      "colapsos_std": 1.0,
+      "presion_media": 0.01851851851851852,
+      "presion_std": 0.6158625610487367,
+      "presion_min": -1.0,
+      "presion_max": 1.0
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "contador": {
+    "RedColapsanteV2": 0.7142857142857143,
+    "RedFragmentada": 0.8571428571428571,
+    "RedHibrida": 0.8571428571428571
+  },
+  "ultimo_signo": {
+    "RedColapsanteV2": 0.9166666666666666,
+    "RedFragmentada": 1.0,
+    "RedHibrida": 1.0
+  },
+  "alternancia": {
+    "RedColapsanteV2": 0.5833333333333334,
+    "RedFragmentada": 0.75,
+    "RedHibrida": 0.75
+  },
+  "paridad_sec": {
+    "RedColapsanteV2": 0.6363636363636364,
+    "RedFragmentada": 0.9090909090909091,
+    "RedHibrida": 0.9090909090909091
+  }
+}

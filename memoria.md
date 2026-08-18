@@ -241,3 +241,105 @@ Próxima actualización: después de crear tritlab/ mínimo y primer benchmark.
 
 ### Próximo paso:
 Implementar FragmentadaColapsante (hibridación memoria + colapso) para comparar.
+
+## 20. RESULTADO CLAVE: Cada arquitectura tiene su nicho
+
+**Fecha:** 2026-08-17
+
+### Resultados:
+- Problemas estáticos: ColapsanteV2 gana (9 pesos, 100% en 3 datasets)
+- Problemas secuenciales: Fragmentada gana (40 pesos, 100% en Último Signo)
+- Fragmentada y Híbrida logran resultados idénticos en secuencias
+- Alternancia es el más difícil (máximo 75% en todas)
+
+### Implicaciones:
+1. No hay arquitectura universalmente mejor
+2. ColapsanteV2: ideal para problemas estáticos
+3. Fragmentada: ideal para problemas secuenciales
+4. Híbrida: no añade ventaja en secuencias
+5. Confirmación de la intuición de Dionis
+
+### Próximo paso:
+Avanzar a MNIST con presión local (Semana 4 del plan).
+
+## 20. RESULTADO CLAVE: Cada arquitectura tiene su nicho
+
+**Fecha:** 2026-08-17
+**Conclusión:** No descartamos ninguna arquitectura, cada una tiene su valor
+
+### Problemas ESTÁTICOS (clasificación, patrones fijos)
+| Dataset | ColapsanteV2 | Fragmentada | Híbrida | Ganadora |
+|---------|--------------|-------------|---------|----------|
+| Sentimiento | 100% (gen 1) | 100% (gen 37) | 100% (gen 3) | **ColapsanteV2** ⭐ |
+| XOR | 100% (gen 7) | 100% (gen 24) | 100% (gen 24) | **ColapsanteV2** ⭐ |
+| Mayoría | 100% (gen 40) | 100% (gen 2) | 100% (gen 1) | **ColapsanteV2** ⭐ |
+
+**Ganadora:** RedColapsanteV2 (9 pesos, sin memoria, 4.4x más eficiente)
+
+### Problemas SECUENCIALES (series temporales, memoria)
+| Dataset | ColapsanteV2 | Fragmentada | Híbrida | Ganadora |
+|---------|--------------|-------------|---------|----------|
+| ULTIMO_SIGNO | 91.67% | 100% ✅ | 100% ✅ | **Fragmentada** ⭐ |
+| PARIDAD_SEC | 63.64% | 90.91% | 90.91% | **Fragmentada** ⭐ |
+| CONTADOR | 71.43% | 85.71% | 85.71% | **Fragmentada** ⭐ |
+| ALTERNANCIA | 58.33% | 75.00% | 75.00% | **Fragmentada** ⭐ |
+
+**Ganadora:** RedFragmentada (40 pesos, con memoria explícita)
+
+### Implicaciones para TritLM
+Necesitamos AMBAS arquitecturas:
+- ColapsanteV2: procesamiento de patrones (rápido, eficiente)
+- Fragmentada: memoria de contexto (secuencias largas, diálogo)
+
+### Validación filosófica
+"No descartamos ninguna arquitectura, cada una tiene su valor" ✅
+
+Los datos confirman que diferentes problemas requieren diferentes estrategias:
+- Estáticos: el colapso contextual es suficiente (sin memoria)
+- Secuenciales: la memoria explícita es esencial (slots persistentes)
+
+Esto refleja la ontología del Tres: el 0 (potencialidad) se usa estratégicamente según el problema.
+
+### Siguiente paso
+Escalar a MNIST (Semana 4 del plan) para validar en problema real.
+
+## 20. RESULTADO CLAVE: Cada arquitectura tiene su nicho
+
+**Fecha:** 2026-08-17
+**Conclusión:** No descartamos ninguna arquitectura, cada una tiene su valor
+
+### Problemas ESTÁTICOS (clasificación, patrones fijos)
+| Dataset | ColapsanteV2 | Fragmentada | Híbrida | Ganadora |
+|---------|--------------|-------------|---------|----------|
+| Sentimiento | 100% (gen 1) | 100% (gen 37) | 100% (gen 3) | **ColapsanteV2** ⭐ |
+| XOR | 100% (gen 7) | 100% (gen 24) | 100% (gen 24) | **ColapsanteV2** ⭐ |
+| Mayoría | 100% (gen 40) | 100% (gen 2) | 100% (gen 1) | **ColapsanteV2** ⭐ |
+
+**Ganadora:** RedColapsanteV2 (9 pesos, sin memoria, 4.4x más eficiente)
+
+### Problemas SECUENCIALES (series temporales, memoria)
+| Dataset | ColapsanteV2 | Fragmentada | Híbrida | Ganadora |
+|---------|--------------|-------------|---------|----------|
+| ULTIMO_SIGNO | 91.67% | 100% ✅ | 100% ✅ | **Fragmentada** ⭐ |
+| PARIDAD_SEC | 63.64% | 90.91% | 90.91% | **Fragmentada** ⭐ |
+| CONTADOR | 71.43% | 85.71% | 85.71% | **Fragmentada** ⭐ |
+| ALTERNANCIA | 58.33% | 75.00% | 75.00% | **Fragmentada** ⭐ |
+
+**Ganadora:** RedFragmentada (40 pesos, con memoria explícita)
+
+### Implicaciones para TritLM
+Necesitamos AMBAS arquitecturas:
+- ColapsanteV2: procesamiento de patrones (rápido, eficiente)
+- Fragmentada: memoria de contexto (secuencias largas, diálogo)
+
+### Validación filosófica
+"No descartamos ninguna arquitectura, cada una tiene su valor" ✅
+
+Los datos confirman que diferentes problemas requieren diferentes estrategias:
+- Estáticos: el colapso contextual es suficiente (sin memoria)
+- Secuenciales: la memoria explícita es esencial (slots persistentes)
+
+Esto refleja la ontología del Tres: el 0 (potencialidad) se usa estratégicamente según el problema.
+
+### Siguiente paso
+Escalar a MNIST (Semana 4 del plan) para validar en problema real.

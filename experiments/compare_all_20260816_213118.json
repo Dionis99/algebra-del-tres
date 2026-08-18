@@ -1,0 +1,44 @@
+{
+  "sentimiento": {
+    "RedColapsanteV2": {
+      "precision": 1.0,
+      "gen_convergencia": 1
+    },
+    "RedFragmentada": {
+      "precision": 1.0,
+      "gen_convergencia": 37
+    },
+    "RedHibrida": {
+      "precision": 1.0,
+      "gen_convergencia": 3
+    }
+  },
+  "xor": {
+    "RedColapsanteV2": {
+      "precision": 1.0,
+      "gen_convergencia": 7
+    },
+    "RedFragmentada": {
+      "precision": 0.8888888888888888,
+      "gen_convergencia": null
+    },
+    "RedHibrida": {
+      "precision": 1.0,
+      "gen_convergencia": 24
+    }
+  },
+  "mayoria": {
+    "RedColapsanteV2": {
+      "precision": 1.0,
+      "gen_convergencia": 40
+    },
+    "RedFragmentada": {
+      "precision": 1.0,
+      "gen_convergencia": 2
+    },
+    "RedHibrida": {
+      "precision": 1.0,
+      "gen_convergencia": 1
+    }
+  }
+}

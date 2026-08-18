@@ -1,0 +1,125 @@
+{
+  "sentimiento": {
+    "RedColapsanteV2": {
+      "arquitectura": "RedColapsanteV2",
+      "total_pesos": 9,
+      "pesos_cero": 2,
+      "tasa_ceros": 0.2222222222222222,
+      "num_umbrales": 4,
+      "umbrales_media": -0.2585005861406341,
+      "umbrales_std": 0.2939956274555861,
+      "umbrales_rango": [
+        -0.7514187972505513,
+        0.02138790723227757
+      ],
+      "precision": 1.0
+    },
+    "RedFragmentada": {
+      "arquitectura": "RedFragmentada",
+      "total_pesos": 40,
+      "pesos_cero": 9,
+      "tasa_ceros": 0.225,
+      "num_umbrales": 0,
+      "umbrales_media": null,
+      "umbrales_std": null,
+      "umbrales_rango": null,
+      "precision": 0.8888888888888888
+    },
+    "RedHibrida": {
+      "arquitectura": "RedHibrida",
+      "total_pesos": 40,
+      "pesos_cero": 16,
+      "tasa_ceros": 0.4,
+      "num_umbrales": 16,
+      "umbrales_media": -0.049221531624043656,
+      "umbrales_std": 0.6417060920453869,
+      "umbrales_rango": [
+        -0.8981273090593589,
+        0.8720655197285957
+      ],
+      "precision": 1.0
+    }
+  },
+  "xor": {
+    "RedColapsanteV2": {
+      "arquitectura": "RedColapsanteV2",
+      "total_pesos": 9,
+      "pesos_cero": 4,
+      "tasa_ceros": 0.4444444444444444,
+      "num_umbrales": 4,
+      "umbrales_media": -0.47505098029313997,
+      "umbrales_std": 0.5286820807056357,
+      "umbrales_rango": [
+        -1.0,
+        0.18079650290966098
+      ],
+      "precision": 1.0
+    },
+    "RedFragmentada": {
+      "arquitectura": "RedFragmentada",
+      "total_pesos": 40,
+      "pesos_cero": 15,
+      "tasa_ceros": 0.375,
+      "num_umbrales": 0,
+      "umbrales_media": null,
+      "umbrales_std": null,
+      "umbrales_rango": null,
+      "precision": 1.0
+    },
+    "RedHibrida": {
+      "arquitectura": "RedHibrida",
+      "total_pesos": 40,
+      "pesos_cero": 18,
+      "tasa_ceros": 0.45,
+      "num_umbrales": 16,
+      "umbrales_media": -0.14874195766458076,
+      "umbrales_std": 0.5840445955176202,
+      "umbrales_rango": [
+        -1.0,
+        0.8808433132342824
+      ],
+      "precision": 1.0
+    }
+  },
+  "mayoria": {
+    "RedColapsanteV2": {
+      "arquitectura": "RedColapsanteV2",
+      "total_pesos": 9,
+      "pesos_cero": 5,
+      "tasa_ceros": 0.5555555555555556,
+      "num_umbrales": 4,
+      "umbrales_media": -0.08346139914570795,
+      "umbrales_std": 0.44792294528121984,
+      "umbrales_rango": [
+        -0.5419975199125102,
+        0.5052232876290623
+      ],
+      "precision": 1.0
+    },
+    "RedFragmentada": {
+      "arquitectura": "RedFragmentada",
+      "total_pesos": 40,
+      "pesos_cero": 16,
+      "tasa_ceros": 0.4,
+      "num_umbrales": 0,
+      "umbrales_media": null,
+      "umbrales_std": null,
+      "umbrales_rango": null,
+      "precision": 1.0
+    },
+    "RedHibrida": {
+      "arquitectura": "RedHibrida",
+      "total_pesos": 40,
+      "pesos_cero": 14,
+      "tasa_ceros": 0.35,
+      "num_umbrales": 16,
+      "umbrales_media": -0.13666047464974748,
+      "umbrales_std": 0.5721110379771436,
+      "umbrales_rango": [
+        -0.8276532807086492,
+        0.7705796710190937
+      ],
+      "precision": 1.0
+    }
+  }
+}
